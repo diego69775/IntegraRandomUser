@@ -20,6 +20,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenLocalhost(5169); // HTTP
+    options.ListenLocalhost(7169, listenOptions =>
+    {
+        listenOptions.UseHttps(); // HTTPS
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
